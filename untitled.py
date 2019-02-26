@@ -14,7 +14,7 @@ fon = pygame.sprite.Group()
 
 
 def load_image(name, color_key=None):
-    fullname = os.path.join(name)
+    fullname = os.path.join('data',name)
     try:
         image = pygame.image.load(fullname).convert()
     except pygame.error as message:
@@ -339,7 +339,7 @@ def start():
                 if self.time <= 40:
                     self.move(0, 3)
                 elif self.initial_cooldown == 0:
-                    self.move(0, 10)
+                    self.move(0, 20)
                 else:
                     self.initial_cooldown -= 1
                 if pygame.sprite.collide_mask(self, pl):
@@ -366,6 +366,7 @@ def start():
             self.move(x, y)
             self.hit = 0
             self.time = 0
+            self.ttt = False
 
         def move(self, xvelocity, yvelocity):
             self.rect = self.rect.move(xvelocity, yvelocity)
@@ -393,6 +394,16 @@ def start():
                         self.release_cooldown -= 1
             if self.time < 280:
                 self.move(0, 1)
+            elif self.coords_x >= 60 and self.ttt == False:
+                self.coords_x -= 3
+                self.move(-3, 0)
+            elif self.ttt == False:
+                self.ttt = True
+            elif self.coords_x <= 1140 and self.ttt == True:
+                self.coords_x += 3
+                self.move(3, 0)
+            elif self.ttt == True:
+                self.ttt = False
             self.time += 1
             if pygame.sprite.collide_mask(self, pl):
                 gameover_screen(score)
@@ -548,14 +559,14 @@ def start():
                                        -120, 300, 240, 25, 1)
                             else:
                                 Enemy_2(enemies, random.randint(0, width - 100),
-                                       -120, 360)
+                                       -120, 120)
                         elif chance < 99:
                             if random.randint(0, 1):
                                 Enemy(enemies, random.randint(0, width - 100),
                                        -120, 300, 160, 15, 2)
                             else:
                                 Enemy_2(enemies, random.randint(0, width - 100),
-                                       -120, 360)
+                                       -120, 120)
                         else:
                             for i in range(10):
                                 if random.randint(0, 1):
@@ -563,7 +574,7 @@ def start():
                                           -120, 300, 160, 15, 2)
                                 else:
                                     Enemy_2(enemies, random.randint(0, width - 100),
-                                            -120, 360)
+                                            -120, 120)
                 enemy_cooldown = max(400 - score * 3,50)
                 if boss_level == True:
                     enemy_cooldown = 400
