@@ -423,7 +423,7 @@ def start():
             pygame.draw.polygon(self.image, (0, 0, 0), ((0, 14), (8, 14), (4, 0)), 1)
             self.rect = pygame.Rect(x, y, 14, 8)
             self.mask = pygame.mask.from_surface(self.image)
-            self.velx = 0
+            self.velx = random.randint(-1, 1)
             self.vely = -4
             if self.friendly:
                 self.vely *= 2.5
@@ -435,6 +435,8 @@ def start():
                 self.vely /= 2
 
         def move(self):
+            self.velx += 0
+            self.vely += 0
             self.rect = self.rect.move(self.velx + self.xremainder, self.vely + self.yremainder)
             self.xremainder = self.velx + self.xremainder - int(self.velx + self.xremainder)
             self.yremainder = self.vely + self.yremainder - int(self.vely + self.yremainder)
@@ -559,14 +561,14 @@ def start():
                                        -120, 300, 240, 25, 1)
                             else:
                                 Enemy_2(enemies, random.randint(0, width - 100),
-                                       -120, 120)
+                                       -120, 60)
                         elif chance < 99:
                             if random.randint(0, 1):
                                 Enemy(enemies, random.randint(0, width - 100),
                                        -120, 300, 160, 15, 2)
                             else:
                                 Enemy_2(enemies, random.randint(0, width - 100),
-                                       -120, 120)
+                                       -120, 45)
                         else:
                             for i in range(10):
                                 if random.randint(0, 1):
@@ -574,7 +576,7 @@ def start():
                                           -120, 300, 160, 15, 2)
                                 else:
                                     Enemy_2(enemies, random.randint(0, width - 100),
-                                            -120, 120)
+                                            -120, 45)
                 enemy_cooldown = max(400 - score * 3,50)
                 if boss_level == True:
                     enemy_cooldown = 400
